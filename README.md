@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # My Website
 
 A modern, responsive web application built with React, TypeScript, and Tailwind CSS.
@@ -171,3 +172,6 @@ Project Link: [https://github.com/yourusername/your-repo-name](https://github.co
 ---
 
 Built with ❤️ and modern web technologies
+=======
+# MyPortfolio
+>>>>>>> f0673c4ef346c2b2e03d2c285188234f03770a04
