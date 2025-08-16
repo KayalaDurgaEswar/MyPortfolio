@@ -52,115 +52,180 @@ const Projects = () => {
     }
   ];
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const badgeVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <section id="projects" className="py-20">
+    <section id="projects" className="py-16 lg:py-20">
       <div className="section-container">
         <motion.div 
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 lg:mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-text-primary mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
             Featured <span className="gradient-text">Projects</span>
           </h2>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto">
             Showcasing my technical expertise through innovative solutions
           </p>
         </motion.div>
 
         <motion.div 
-          className="grid lg:grid-cols-1 gap-8"
+          className="grid gap-6 lg:gap-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           {projects.map((project, index) => (
-            <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} whileHover={{ y: -5 }}>
-              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group">
-              <div className="p-8">
-                <div className="flex flex-col lg:flex-row gap-8">
-                  {/* Project Info */}
-                  <div className="flex-1 space-y-6">
-                    <div className="space-y-3">
+            <motion.div 
+              key={index} 
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -8 }}
+              className="group"
+            >
+              <Card className="overflow-hidden card-hover border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="p-6 lg:p-8">
+                  <div className="space-y-6 lg:space-y-8">
+                    {/* Project Header */}
+                    <div className="space-y-4">
                       <div className="flex items-center gap-3 text-text-muted">
                         <Calendar className="h-4 w-4" />
-                        <span className="text-sm">{project.date}</span>
+                        <span className="text-sm text-engaging-muted">{project.date}</span>
                       </div>
-                      <h3 className="text-2xl font-bold text-text-primary group-hover:text-primary transition-colors">
+                      <motion.h3 
+                        className="text-xl sm:text-2xl font-bold text-text-primary group-hover:text-primary transition-colors"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
                         {project.title}
-                      </h3>
-                      <p className="text-text-secondary leading-relaxed">
+                      </motion.h3>
+                      <p className="text-text-secondary leading-relaxed text-sm sm:text-base text-engaging">
                         {project.description}
                       </p>
                     </div>
 
                     {/* Features */}
                     <div>
-                      <h4 className="font-semibold text-text-primary mb-3">Key Features</h4>
+                      <h4 className="font-semibold text-text-primary mb-3 text-sm sm:text-base">Key Features</h4>
                       <ul className="space-y-2">
                         {project.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-start gap-3 text-text-secondary">
+                          <motion.li 
+                            key={featureIndex} 
+                            className="flex items-start gap-3 text-text-secondary"
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: featureIndex * 0.1 }}
+                            viewport={{ once: true }}
+                          >
                             <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></div>
-                            <span className="text-sm">{feature}</span>
-                          </li>
+                            <span className="text-sm text-engaging">{feature}</span>
+                          </motion.li>
                         ))}
                       </ul>
                     </div>
 
                     {/* Technologies */}
                     <div>
-                      <h4 className="font-semibold text-text-primary mb-3">Technologies Used</h4>
+                      <h4 className="font-semibold text-text-primary mb-3 text-sm sm:text-base">Technologies Used</h4>
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, techIndex) => (
-                          <Badge key={techIndex} variant="secondary" className="bg-accent-muted text-accent-foreground hover:bg-accent">
-                            {tech}
-                          </Badge>
+                          <motion.div
+                            key={techIndex}
+                            variants={badgeVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            transition={{ delay: techIndex * 0.05 }}
+                            whileHover={{ scale: 1.05, y: -2 }}
+                          >
+                            <Badge 
+                              variant="secondary" 
+                              className="badge-secondary text-xs font-medium"
+                            >
+                              {tech}
+                            </Badge>
+                          </motion.div>
                         ))}
                       </div>
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex gap-4 pt-4">
+                    <div className="flex flex-col sm:flex-row gap-3 pt-4">
                       {project.liveUrl && project.liveUrl !== "#" && (
-                        <Button 
-                          variant="default" 
-                          size="sm" 
-                          className="group"
-                          asChild
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
                         >
-                          <a 
-                            href={project.liveUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
+                          <Button 
+                            variant="default" 
+                            size="sm" 
+                            className="group btn-hover w-full sm:w-auto"
+                            asChild
                           >
-                            <ExternalLink className="mr-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-                            View Project
-                          </a>
-                        </Button>
+                            <a 
+                              href={project.liveUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                            >
+                              <ExternalLink className="mr-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                              View Project
+                            </a>
+                          </Button>
+                        </motion.div>
                       )}
                       {project.sourceUrl && project.sourceUrl !== "#" && (
-                        <Button 
-                          variant="outline-primary" 
-                          size="sm" 
-                          className="group"
-                          asChild
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
                         >
-                          <a 
-                            href={project.sourceUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
+                          <Button 
+                            variant="outline-primary" 
+                            size="sm" 
+                            className="group btn-hover w-full sm:w-auto"
+                            asChild
                           >
-                            <Github className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />
-                            Source Code
-                          </a>
-                        </Button>
+                            <a 
+                              href={project.sourceUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                            >
+                              <Github className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform" />
+                              Source Code
+                            </a>
+                          </Button>
+                        </motion.div>
                       )}
                     </div>
                   </div>
                 </div>
-              </div>
               </Card>
             </motion.div>
           ))}
