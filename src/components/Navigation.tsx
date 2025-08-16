@@ -10,7 +10,7 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 10);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -129,10 +129,9 @@ const Navigation = () => {
                 onClick={() => scrollToSection(link.href)}
                 className="relative text-text-secondary hover:text-primary transition-colors font-medium py-2 group"
                 whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.1, duration: 0.2 }}
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
@@ -187,11 +186,11 @@ const Navigation = () => {
           </motion.button>
         </div>
 
-        {/* Mobile Menu - Fixed positioning for consistency */}
+        {/* Mobile Menu - Constant background */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div 
-              className="mobile-menu md:hidden fixed top-16 left-0 right-0 bg-background/98 backdrop-blur-lg border-t border-border shadow-xl"
+              className="mobile-menu md:hidden fixed top-16 left-0 right-0 bg-background/95 backdrop-blur-md border-t border-border shadow-lg"
               variants={mobileMenuVariants}
               initial="closed"
               animate="open"
@@ -215,16 +214,19 @@ const Navigation = () => {
                   variants={mobileItemVariants}
                 >
                   <ThemeToggle />
-                  <Button 
-                    variant="outline-primary" 
-                    size="sm" 
-                    className="flex-1 btn-hover"
+                  <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <Download className="mr-2 h-4 w-4" />
-                    Download Resume
-                  </Button>
+                    <Button 
+                      variant="outline-primary" 
+                      size="sm" 
+                      className="flex-1 btn-hover"
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Download Resume
+                    </Button>
+                  </motion.div>
                 </motion.div>
               </div>
             </motion.div>
