@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modern Portfolio Design System */
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 0 0% 98%;
+    --foreground: 220 15% 15%;
+
+    /* Cards and Surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
+    --surface: 220 20% 96%;
+    --surface-foreground: 220 15% 25%;
+
+    /* Brand Colors */
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 210 100% 60%;
+    --primary-dark: 210 100% 40%;
+
+    /* Accent Colors */
+    --accent: 180 80% 50%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 180 80% 60%;
+    --accent-muted: 180 30% 90%;
+
+    /* Secondary Colors */
+    --secondary: 220 20% 94%;
+    --secondary-foreground: 220 15% 25%;
+    --secondary-dark: 220 20% 88%;
+
+    /* Text Colors */
+    --text-primary: 220 15% 15%;
+    --text-secondary: 220 10% 45%;
+    --text-muted: 220 5% 65%;
+
+    /* Status Colors */
+    --success: 140 70% 45%;
+    --warning: 40 90% 55%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and Inputs */
+    --border: 220 20% 88%;
+    --border-light: 220 15% 92%;
+    --input: 220 20% 94%;
+    --ring: 210 100% 50%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 50%), hsl(180 80% 50%));
+    --gradient-secondary: linear-gradient(135deg, hsl(220 20% 96%), hsl(220 15% 92%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 50% / 0.1), hsl(180 80% 50% / 0.1));
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px hsl(220 15% 15% / 0.05);
+    --shadow-md: 0 4px 20px hsl(220 15% 15% / 0.1);
+    --shadow-lg: 0 8px 40px hsl(220 15% 15% / 0.15);
+    --shadow-glow: 0 0 30px hsl(210 100% 50% / 0.3);
+
+    /* Animation */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Base Colors */
+    --background: 222 20% 8%;
+    --foreground: 210 40% 95%;
+
+    /* Cards and Surfaces */
+    --card: 222 20% 10%;
+    --card-foreground: 210 40% 95%;
+    --surface: 222 20% 12%;
+    --surface-foreground: 210 40% 85%;
+
+    /* Brand Colors */
+    --primary: 210 100% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 210 100% 70%;
+    --primary-dark: 210 100% 50%;
+
+    /* Accent Colors */
+    --accent: 180 80% 60%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 180 80% 70%;
+    --accent-muted: 180 20% 20%;
+
+    /* Secondary Colors */
+    --secondary: 222 20% 15%;
+    --secondary-foreground: 210 40% 85%;
+    --secondary-dark: 222 20% 12%;
+
+    /* Text Colors */
+    --text-primary: 210 40% 95%;
+    --text-secondary: 210 20% 75%;
+    --text-muted: 210 10% 55%;
+
+    /* Status Colors */
+    --success: 140 70% 55%;
+    --warning: 40 90% 65%;
+    --destructive: 0 70% 65%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and Inputs */
+    --border: 222 20% 20%;
+    --input: 222 20% 15%;
+    --ring: 210 100% 60%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold;
+    letter-spacing: -0.025em;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-container {
+    @apply max-w-6xl mx-auto px-6 lg:px-8;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
