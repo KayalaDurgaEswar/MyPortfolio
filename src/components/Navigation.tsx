@@ -61,13 +61,36 @@ const Navigation = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleResumeDownload = () => {
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = '/resume.pdf';
+    link.download = 'Kayala_Durga_Eswar_Resume.pdf';
+    
+    // For mobile devices, we need to handle the download differently
+    if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      // Open in new tab for mobile devices
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    }
+    
+    // Append to body, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Close mobile menu if open
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   const mobileMenuVariants = {
     closed: {
       opacity: 0,
       y: -20,
       transition: {
-        duration: 0.2,
-        ease: "easeInOut"
+        duration: 0.2
       }
     },
     open: {
@@ -75,7 +98,6 @@ const Navigation = () => {
       y: 0,
       transition: {
         duration: 0.3,
-        ease: "easeOut",
         staggerChildren: 0.1,
         delayChildren: 0.1
       }
@@ -91,8 +113,7 @@ const Navigation = () => {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.3,
-        ease: "easeOut"
+        duration: 0.3
       }
     }
   };
@@ -101,7 +122,7 @@ const Navigation = () => {
     <motion.nav 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border/50" 
@@ -146,7 +167,12 @@ const Navigation = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button variant="outline-primary" size="sm" className="btn-hover">
+              <Button 
+                variant="outline-primary" 
+                size="sm" 
+                className="btn-hover"
+                onClick={handleResumeDownload}
+              >
                 <Download className="mr-2 h-4 w-4" />
                 Resume
               </Button>
@@ -222,6 +248,7 @@ const Navigation = () => {
                       variant="outline-primary" 
                       size="sm" 
                       className="flex-1 btn-hover"
+                      onClick={handleResumeDownload}
                     >
                       <Download className="mr-2 h-4 w-4" />
                       Download Resume
